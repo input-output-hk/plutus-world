@@ -1,0 +1,22 @@
+[book]
+autors = ["The Plutus Authors"]
+language = "en"
+multilingual = false
+src = "docs"
+title = "The Plutus Book"
+
+[build]
+build-dir = "docs/book"
+
+[output.html]
+additional-js = ["static/js/mermaid.min.js", "static/js/mermaid-init.js"]
+edit-url-template = "https://github.com/input-output-hk/plutus-world/edit/main/src/{path}"
+git-repository-icon = "fa-github"
+git-repository-url = "https://github.com/input-output-hk/plutus-world"
+
+[preprocessor]
+[preprocessor.kroki-preprocessor]
+command = "mdbook-kroki-preprocessor"
+
+[preprocessor.mermaid]
+command = "mdbook-mermaid"

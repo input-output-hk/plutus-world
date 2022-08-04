@@ -36,6 +36,7 @@
 
         # cloud
         (inputs.std.data "constants")
+        (inputs.std.functions "library")
         (inputs.std.functions "hydrationProfiles")
         (inputs.std.data "namespaces/dev-node")
         (inputs.std.data "namespaces/production")

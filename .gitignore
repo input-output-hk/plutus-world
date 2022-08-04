@@ -1,3 +1,6 @@
+# direnv/direnv + divnix/std
+.std
+.envrc.local
 
 # nixago: ignore-linked-files
 adrgen.config.yml

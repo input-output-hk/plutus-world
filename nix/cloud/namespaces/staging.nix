@@ -1,4 +1,7 @@
 {
   inputs,
   cell,
-}: {default = {};}
+}:
+cell.library.mkMarloweComponents {
+  namespace = "staging";
+}

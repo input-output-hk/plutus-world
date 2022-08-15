@@ -19,14 +19,28 @@
 in {
   chain-index = std.lib.writeShellEntrypoint inputs {
     package = packages.chain-index;
+    # NOTE: let's use the '${l.getExe packages.chain-index}' idiom for the main package
+    # ... it just helps through syntax highlighting to quickly spot the line ...
     entrypoint = ''
+      mkdir -p "$INDEX_STATE_DIR"
+      wait-for-socket "$SOCKET_PATH"
+      exec ${l.getExe packages.chain-index} \
+        start-index --socket-path "$SOCKET_PATH" \
+        --db-path "$INDEX_STATE_DIR/db.sqlite" \
+        --port "$PORT" \
+        --network-id "$NETWORK_MAGIC"
     '';
-    env = {};
+    env = {
+      INDEX_STATE_DIR = "some-default"; # FIXME
+      NETWORK_MAGIC = "some-default"; # FIXME
+      PORT = "8080"; # NOTE: can be fixed at the level of the container; portmapping comes on top of it.
+      SOCKET_PATH = "/alloc/node.sock"; # the entrypoint layer *must not* have semantic knowledge of nomad (yet)
+      # ... that means, that you would provide SOCKET_PATH path as env in the nomadChart as per the concrete case
+      # ... rationale: 4th layer (scheduling layer) cannot bleed into the 3rd layer (image layer) because that
+      # would prevent the 3rd layer from being generic in principle.
+    };
     runtimeInputs = [
-      /*
-      packages.yourpackage
-      nixpkgs.yourpackage
-      */
+      nixpkgs.coreutils
       common.packages.wait-for-socket
     ];
     debugInputs = [

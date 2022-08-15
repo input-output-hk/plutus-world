@@ -14,6 +14,20 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     capsules.url = "github:input-output-hk/devshell-capsules";
     # --------------------------------------------------------------
+    # --- Bridehead Package Sourcing -------------------------------
+    /*
+    TODO:
+    Import all the versions that might be necessary
+    This example only assumes "latest"
+    */
+    plutus.url = "github:input-output-hk/plutus-apps";
+    marlowe.url = "github:input-output-hk/marlowe-cardano";
+    marlowe-web.url = "github:input-output-hk/marlowe-website";
+    # NOTE: used for the `cardano-wallet` component of its cardano cell
+    cardano.url = "github:input-output-hk/cardano-world";
+    cardano.inputs.bitte.url = "github:divnix/blank";
+    cardano.inputs.capsules.url = "github:divnix/blank";
+    # --------------------------------------------------------------
   };
   outputs = inputs: let
     inherit (inputs) bitte;

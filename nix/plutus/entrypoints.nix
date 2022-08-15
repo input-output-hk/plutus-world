@@ -2,9 +2,11 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-
   inherit (cell) packages;
+
+  inherit (inputs.cells) common;
+
+  inherit (inputs) nixpkgs;
   inherit (inputs.std) std;
 
   l = nixpkgs.lib // builtins;
@@ -25,6 +27,7 @@ in {
       packages.yourpackage
       nixpkgs.yourpackage
       */
+      common.packages.wait-for-socket
     ];
     debugInputs = [
       /*

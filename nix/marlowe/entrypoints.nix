@@ -2,9 +2,11 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) nixpkgs;
-
   inherit (cell) packages;
+
+  inherit (inputs.cells) common;
+
+  inherit (inputs) nixpkgs;
   inherit (inputs.std) std;
 
   l = nixpkgs.lib // builtins;
@@ -73,6 +75,8 @@ in {
     env = {};
     runtimeInputs = [
       packages.pab # NOTE: from what I understood from upstream
+      common.packages.wait-for-socket
+      common.packages.sleep-until-restart-slot
     ];
     debugInputs = [];
     livenessProbe = null;
